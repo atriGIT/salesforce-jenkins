@@ -1,0 +1,24 @@
+trigger InvoiceTrigger on Invoice__c (after insert, after update) {
+	RepairOrderXMLWriter process = new RepairOrderXMLWriter();
+	Map<Id, Invoice__c> mapInvoiceSubmitted = new Map<Id, Invoice__c>();
+
+	if(Trigger.isAfter && Trigger.isInsert){
+		for(Invoice__c inv: Trigger.new){
+			if(inv.Status__c == 'Submitted' && !inv.FromXML__c){
+				mapInvoiceSubmitted.put(inv.Id, inv);
+			}
+		}
+	}
+
+	if(Trigger.isAfter && Trigger.isUpdate){
+		for(Invoice__c inv: Trigger.new){
+			if(inv.Status__c != Trigger.oldMap.get(inv.Id).Status__c && (inv.Status__c == 'Submitted')){
+				mapInvoiceSubmitted.put(inv.Id, inv);
+			}
+		}
+	}
+
+	if(mapInvoiceSubmitted.size() >0){
+		process.WriteXML(mapInvoiceSubmitted);
+	}
+}
