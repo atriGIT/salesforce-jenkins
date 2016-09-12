@@ -1,0 +1,51 @@
+<!--
+* @author       R Wilson (Oakton)
+* @date         20.MAY.2016        
+* @description  FAQ page for the DES portal
+* @revision  
+*     - 20.MAY.2016 - added CSS for the page to be responsive  
+-->
+<apex:page id="faq" showHeader="false" sidebar="false" controller="InvoiceViewController" standardStylesheets="false">
+    <apex:composition template="DESTemplate" >
+        <apex:define name="body">
+            <apex:form id="mainForm">
+                <div id="orderFormDiv" class="insideDiv">
+                        <br/>
+                        <h1>Contact Us</h1>
+                        <hr class="panelDivider"/>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="phone" >Phone:</label>&nbsp;
+                                <apex:outputText value="1300 130 302" />
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="email" >Email:</label>&nbsp;
+                                <a href="mailto:dcsi.desrepairs@sa.gov.au">dcsi.desrepairs@sa.gov.au</a>
+                            </div> 
+                        </div>
+                        <br/>
+                        <h1>Downloadable Contents</h1>
+                        <hr class="panelDivider"/>
+                        <br/>
+                        <apex:dataTable id="faqFiles" value="{!faqs}" var="file" styleClass="table table-hover dataTable">
+                            <apex:column headerValue="Title">
+                                <apex:outputLink target="_self" value="/servlet/servlet.FileDownload?file={!file.Id}" >{!file.Name}</apex:outputLink>
+                            </apex:column>
+                            <apex:column headerValue="Description">
+                                <apex:outputText value="{!file.Description}" />
+                            </apex:column>
+                            <apex:column headerValue="Last Modified Date">
+                                <apex:outputField value="{!file.LastModifiedDate}" />
+                            </apex:column>
+                        </apex:dataTable>
+                        <br/><br/>
+                    <!--Pushing content for footer-->
+                    <div class="contentPush"/>
+                </div>
+                <c:OrderFormFooter id="footer"/>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>
