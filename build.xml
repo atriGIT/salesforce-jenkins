@@ -1,4 +1,4 @@
-<project name="Sample usage of Salesforce Ant tasks" default="test" basedir="." xmlns:sf="antlib:com.salesforce">
+<project name="Sample usage of Salesforce Ant tasks" basedir="." xmlns:sf="antlib:com.salesforce">
 
     <property file="build.properties"/>
     <property environment="env"/>
@@ -9,7 +9,6 @@
       <sf:deploy 
         username="${sfsource.username}" 
         password="${sfsource.password}" 
-        sessionId="${sf.sessionId}" 
         serverurl="${sf.serverurl}" 
         runAllTests="true"
         deployRoot="src"/>
@@ -23,7 +22,6 @@
       <sf:deploy 
         username="${sf.username}" 
         password="${sf.password}" 
-        sessionId="${sf.sessionId}" 
         serverurl="${sf.serverurl}" 
         maxPoll="${sf.maxPoll}" 
         deployRoot="codepkg" 
